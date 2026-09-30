@@ -269,13 +269,15 @@ function newinstallation(data) {
     externalmenu.style.display = "flex";
 };
 
-function newinstallationsave(notsaving) {
+function newinstallationsave(notsaving, edition) {
     let customlaunchname = document.getElementById("installationscreenname").value;
     if (!customlaunchname) {customlaunchname = "New Installation";};
-    let gamepath;
-    if (localStorage.getItem("startupprofile") == 1) {gamepath = "basegame"};
-    if (localStorage.getItem("startupprofile") == 2) {gamepath = "moddedgame"};
-    if (localStorage.getItem("startupprofile") == 3) {gamepath = "assisted"};
+    let gamepath = edition;
+    if (!gamepath) {
+        if (localStorage.getItem("startupprofile") == 1) {gamepath = "basegame"};
+        if (localStorage.getItem("startupprofile") == 2) {gamepath = "moddedgame"};
+        if (localStorage.getItem("startupprofile") == 3) {gamepath = "assisted"};
+    }
     let customlaunch = {
         "title": customlaunchersnumber + "cl" + customlaunchname,
         "version": document.getElementById("installationscreendropdown").selectedOptions[0].innerText,
@@ -357,7 +359,7 @@ function installationedit(data, title) {
     const installationscreenfooterhr = document.createElement("hr");
     const installationscreenfooterbuttons = document.createElement("div");
     installationscreenfooterbuttons.className = "newinstallationfooterbuttons";
-    installationscreenfooterbuttons.innerHTML = `<div id="newinstallationcancel" class="classicbutton" onclick="closenotescreen();"><p class="bolded">Cancel</p></div><div id="newinstallationsave" class="greenbutton classicbutton" onclick="localStorage.removeItem('c` + title + `'); localStorage.removeItem('` + title + `'); localStorage.setItem('customlaunchers', JSON.stringify(JSON.parse(localStorage.getItem('customlaunchers')).filter(item => item !== '` + title + `'))); newinstallationsave(false);"><p class="bolded">Save</p></div>`;
+    installationscreenfooterbuttons.innerHTML = `<div id="newinstallationcancel" class="classicbutton" onclick="closenotescreen();"><p class="bolded">Cancel</p></div><div id="newinstallationsave" class="greenbutton classicbutton" onclick="localStorage.removeItem('c` + title + `'); localStorage.removeItem('` + title + `'); localStorage.setItem('customlaunchers', JSON.stringify(JSON.parse(localStorage.getItem('customlaunchers')).filter(item => item !== '` + title + `'))); newinstallationsave(false, '` + editions.find((e) => e.path === data).key + `');"><p class="bolded">Save</p></div>`;
 
     installationscreenheader.prepend(installationscreenheadertitle);
     installationscreenfooter.appendChild(installationscreenfooterhr);
@@ -392,23 +394,33 @@ function installationdeleteconfirm(title) {
 };
 
 const installations = document.getElementById("installationsbox");
+const editions = [
+    {path: "./assets/json/base.json", key: "basegame", name: "WEB EDITION"},
+    {path: "./assets/json/modded.json", key: "moddedgame", name: "MODDED"},
+    {path: "./assets/json/assisted.json", key: "assisted", name: "MOBILE / CONTROLLER"}
+];
+let installrender = 0;
+
 function generatelaunchers(path) {
     document.getElementById("newinstallationbutton").setAttribute("onclick", "newinstallation('" + path + "')");
-    const gamedividertop = document.createElement("hr");
-    installations.appendChild(gamedividertop);
-    if (localStorage.getItem("launcherpresets") == "true") {
-        fetch(path).then((response) => response.json()).then((data) => {data.forEach((game) => {
-            generatelauncher(game, path);
-        })}).then(() => {generatecustomlaunchers(path)});
-    };
-    if (localStorage.getItem("launcherpresets") == "false") {
-        let gamepath;
-        if (path === "./assets/json/base.json") {gamepath = JSON.parse(localStorage.getItem("basegame"))};
-        if (path === "./assets/json/modded.json") {gamepath = JSON.parse(localStorage.getItem("moddedgame"))};
-        if (path === "./assets/json/assisted.json") {gamepath = JSON.parse(localStorage.getItem("assisted"))};
-        generatelauncher(gamepath, path);
-        generatecustomlaunchers(path);
-    };
+    const render = ++installrender;
+    Promise.all(editions.map((e) => fetch(e.path).then((r) => r.json()))).then((lists) => {
+        if (render !== installrender) {return}; // a newer render replaced this one
+        editions.forEach((edition, i) => {
+            const title = document.createElement("p");
+            title.className = "bolded";
+            title.style.margin = "1.5vw 0 0.5vw";
+            title.innerHTML = edition.name;
+            installations.appendChild(title);
+            installations.appendChild(document.createElement("hr"));
+            if (localStorage.getItem("launcherpresets") == "true") {
+                lists[i].forEach((game) => generatelauncher(game, edition.path));
+            } else {
+                generatelauncher(JSON.parse(localStorage.getItem(edition.key)) || lists[i][0], edition.path);
+            }
+            generatecustomlaunchers(edition.path);
+        });
+    });
 };
 
 function generatecustomlaunchers(path) {
