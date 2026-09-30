@@ -1,51 +1,191 @@
 [
     {
-       "title": "Astra Client",
-       "version": "1.8.8-v1.6",
-       "icon": "./assets/images/icons/astra-client.png",
-       "link": "./mc/astraclient/",
-       "active": true
+        "title": "Astra Client",
+        "version": "1.8.8-v1.6",
+        "icon": "./assets/images/icons/astra-client.png",
+        "link": "./mc/Astra%20Client/",
+        "active": true
     },
     {
-       "title": "Eaglerforge",
-       "version": "1.8.8-v1.3.2",
-       "icon": "./assets/images/icons/eaglerforge.png",
-       "link": "./mc/eaglerforge/",
-       "active": true
+        "title": "Eaglerforge",
+        "version": "1.8.8-v1.3.2",
+        "icon": "./assets/images/icons/eaglerforge.png",
+        "link": "./mc/Eaglerforge/",
+        "active": true
     },
     {
-       "title": "PixelClient",
-       "version": "1.12.2-v2.1.4",
-       "icon": "./assets/images/icons/pixelclient.svg",
-       "link": "./mc/pixelclient/",
-      "active": true
+        "title": "PixelClient",
+        "version": "1.12.2-v2.1.4",
+        "icon": "./assets/images/icons/pixelclient.svg",
+        "link": "./mc/Pixel%20Client/",
+        "active": true
     },
     {
-       "title": "Resent Client",
-       "version": "1.8.8-v5.1.p0",
-       "icon": "./assets/images/icons/resent-client.png",
-       "link": "./mc/resentclient/",
-       "active": true
+        "title": "Resent Client",
+        "version": "1.8.8-v5.1.p0",
+        "icon": "./assets/images/icons/resent-client.png",
+        "link": "./mc/Resent%20Client/",
+        "active": true
     },
     {
-       "title": "Shadow Client",
-       "version": "1.8.8-v4.5-u34",
-       "icon": "./assets/images/mc-icons/skull.png",
-       "link": "./mc/shadowclient/",
-      "active": true
+        "title": "Shadow Client",
+        "version": "1.8.8-v4.5-u34",
+        "icon": "./assets/images/mc-icons/skull.png",
+        "link": "./mc/Shadow%20Network/",
+        "active": true
     },
     {
-       "title": "Starlike",
-       "version": "1.8.8-v0.4.2",
-       "icon": "./assets/images/icons/starlike.png",
-       "link": "./mc/starlikeclient/",
-       "active": true
+        "title": "Starlike",
+        "version": "1.8.8-v0.4.2",
+        "icon": "./assets/images/icons/starlike.png",
+        "link": "./mc/starlikeclient/",
+        "active": true
     },
     {
-       "title": "Tuff Client",
-       "version": "1.12.2-v1.1UT13",
-       "icon": "./assets/images/mc-icons/tuff.png",
-       "link": "./mc/tuffclient/",
-       "active": true
+        "title": "Tuff Client",
+        "version": "1.12.2-v1.1UT13",
+        "icon": "./assets/images/mc-icons/tuff.png",
+        "link": "./mc/Tuff%20Client/",
+        "active": true
+    },
+    {
+        "title": "Aero Client",
+        "version": "unknown",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/Aero%20Client/",
+        "active": false
+    },
+    {
+        "title": "Astra Client 2",
+        "version": "1.8.8",
+        "icon": "./assets/images/icons/astra-client.png",
+        "link": "./mc/Astra%20Client%202-1.8.8/",
+        "active": false
+    },
+    {
+        "title": "EB Client",
+        "version": "unknown",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/EB%20Client/",
+        "active": false
+    },
+    {
+        "title": "EB Client 1.14.4",
+        "version": "1.14.4",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/EB%20Client%201.14.4/",
+        "active": false
+    },
+    {
+        "title": "EB Client 1.8.8",
+        "version": "1.8.8",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/EB%20Client%201.8.8/",
+        "active": false
+    },
+    {
+        "title": "Eclipse Client",
+        "version": "unknown",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/Eclipse%20Client/",
+        "active": false
+    },
+    {
+        "title": "EFI Client 1.12.2",
+        "version": "1.12.2",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/efi-1.12.2/",
+        "active": false
+    },
+    {
+        "title": "EFI Client 1.8.8",
+        "version": "1.8.8",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/efi-1.8.8/",
+        "active": false
+    },
+    {
+        "title": "Forge 1.6.4",
+        "version": "1.6.4",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/Forge%201.6.4/",
+        "active": false
+    },
+    {
+        "title": "GX Client",
+        "version": "unknown",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/GX-Client/",
+        "active": false
+    },
+    {
+        "title": "Huzzium Client",
+        "version": "unknown",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/Huzzium%20Client/",
+        "active": false
+    },
+    {
+        "title": "Kozmo Client",
+        "version": "unknown",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/Kozmo%20Client/",
+        "active": false
+    },
+    {
+        "title": "Larp Client 1.12.2",
+        "version": "1.12.2",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/Larp%20Client%201.12.2/",
+        "active": false
+    },
+    {
+        "title": "Larp Client 1.14.4",
+        "version": "1.14.4",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/Larp%20Client%201.14.4/",
+        "active": false
+    },
+    {
+        "title": "Modern Client",
+        "version": "unknown",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/Modern%20Client/",
+        "active": false
+    },
+    {
+        "title": "Myven Client",
+        "version": "unknown",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/Myven%20Client/",
+        "active": false
+    },
+    {
+        "title": "Precision Client",
+        "version": "unknown",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/Precision%20Client/",
+        "active": false
+    },
+    {
+        "title": "Reflex Client",
+        "version": "unknown",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/Reflex%20Client/",
+        "active": false
+    },
+    {
+        "title": "The Broken Script",
+        "version": "1.8.8",
+        "icon": "./assets/images/icons/eaglercraft.png",
+        "link": "./mc/The%20Broken%20Script%201.8.8/",
+        "active": false
+    },
+    {
+        "title": "Tuff Client Beta",
+        "version": "unknown",
+        "icon": "./assets/images/mc-icons/tuff.png",
+        "link": "./mc/Tuff%20Client%20Beta/",
+        "active": false
     }
- ]
+]
