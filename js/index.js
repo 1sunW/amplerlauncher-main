@@ -13,6 +13,26 @@ function errorNA(text) {
     }, 3200);
 }
 
+// Short on-screen notice (reuses the "not added" popup)
+let noticetimers = [];
+function notice(text, heading) {
+    const box = document.getElementById('naerror');
+    noticetimers.forEach(clearTimeout);
+    box.querySelector('.bolded').innerHTML = heading || "NOTICE";
+    document.getElementById('errortext').innerHTML = text;
+    box.classList.remove('zoom-out');
+    box.style.display = 'block';
+    noticetimers = [
+        setTimeout(function(){box.classList.add('zoom-out')}, 3500),
+        setTimeout(function(){
+            box.classList.remove('zoom-out');
+            box.style.display = 'none';
+            box.querySelector('.bolded').innerHTML = "SORRY!";
+            document.getElementById('errortext').innerHTML = "This feature hasn't been made yet.";
+        }, 3700)
+    ];
+};
+
 // Last Played Game Option
 let selectedGame1 = localStorage.getItem("basegame");
 let selectedGame2 = localStorage.getItem("moddedgame");
@@ -865,20 +885,131 @@ function preventMotion(event)
 }
 
 // Basic Settings
-const newtabcheckbox = document.getElementById("launchnewtab");
 const presetscheckbox = document.getElementById("launcherpresets");
-if (localStorage.getItem("launcherpresets")) {
-    if (localStorage.getItem("launcherpresets") == 'true') {
-        presetscheckbox.checked = true;
+if (localStorage.getItem("launcherpresets") == 'true') {presetscheckbox.checked = true};
+// The old "Launch game in new window" checkbox is now the Launch Mode setting
+if (!localStorage.getItem("launchmode") && localStorage.getItem("launchnewtab") == 'true') {localStorage.setItem("launchmode", "tab")};
+
+// Launch Mode, Theme, Text Size
+const playlink = document.getElementById("playbutton");
+
+function setlaunchmode(mode) {
+    localStorage.setItem("launchmode", mode);
+    syncsettings();
+};
+
+function settheme(name) {
+    if (name === "default") {localStorage.removeItem("theme")} else {localStorage.setItem("theme", name)};
+    syncsettings();
+};
+
+function settextscale(scale) {
+    if (scale === 1) {localStorage.removeItem("textscale")} else {localStorage.setItem("textscale", scale)};
+    syncsettings();
+};
+
+// Applies the saved settings to the page and marks the selected options
+function syncsettings() {
+    const root = document.documentElement;
+    const mode = localStorage.getItem("launchmode") || "same";
+    const theme = localStorage.getItem("theme") || "default";
+    const scale = Math.min(2, Math.max(0.5, parseFloat(localStorage.getItem("textscale")) || 1));
+    if (theme === "default") {delete root.dataset.theme} else {root.dataset.theme = theme};
+    root.style.setProperty("--text-scale", scale);
+    playlink.target = mode === "tab" ? "_blank" : "";
+    document.querySelectorAll("[data-launchmode]").forEach((card) => card.classList.toggle("selected", card.dataset.launchmode === mode));
+    document.querySelectorAll("[data-themename]").forEach((card) => card.classList.toggle("selected", card.dataset.themename === theme));
+    document.querySelectorAll("[data-textscale]").forEach((card) => card.classList.toggle("selected", parseFloat(card.dataset.textscale) === scale));
+};
+
+// WISP injection
+const defaultwispurl = "wss://anura.pro/";
+function wispenabled() {return localStorage.getItem("wispenabled") === "true"};
+function wispurl() {return localStorage.getItem("wispurl") || defaultwispurl};
+
+function syncwisp() {
+    document.getElementById("wispenabled").checked = wispenabled();
+    document.getElementById("wispurlinput").value = wispurl();
+    document.getElementById("wisprow").classList.toggle("disabled", !wispenabled());
+};
+
+function togglewisp() {
+    localStorage.setItem("wispenabled", document.getElementById("wispenabled").checked);
+    syncwisp();
+};
+
+function savewispurl() {
+    const value = document.getElementById("wispurlinput").value.trim();
+    if (!/^wss?:\/\/\S+$/i.test(value)) {notice("Enter a WebSocket address that starts with ws:// or wss://", "WISP"); return};
+    localStorage.setItem("wispurl", value);
+    notice("WISP server saved.", "WISP");
+};
+
+function resetwispurl() {
+    localStorage.removeItem("wispurl");
+    syncwisp();
+    notice("WISP server reset to the default.", "WISP");
+};
+
+// Adds the Wispcraft script to the top of a game's HTML and pins relative links to the game's folder
+function injectwisp(html, gameurl) {
+    const folder = new URL(".", gameurl).href;
+    const bundle = new URL("./js/wispcraft.js", location.href).href;
+    const tags = '<base href="' + folder + '"><script src="' + bundle + '"></script>';
+    if (/<head[\s>]/i.test(html)) {return html.replace(/<head[^>]*>/i, (tag) => tag + tags)};
+    if (/<html[\s>]/i.test(html)) {return html.replace(/<html[^>]*>/i, (tag) => tag + "<head>" + tags + "</head>")};
+    return tags + html;
+};
+
+function writepage(win, html) {
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
+};
+
+function cloakpage(href) {
+    return '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Ampler Launcher</title><style>html,body,iframe{margin:0;padding:0;border:0;width:100%;height:100%;overflow:hidden;background:#000}</style></head><body><iframe src="' + href + '" allowfullscreen allow="fullscreen; autoplay; clipboard-write; gamepad"></iframe></body></html>';
+};
+
+async function launchgame(gameurl, mode, inject) {
+    const popupfeatures = "popup,width=1280,height=720";
+    // Open the window right away (inside the click) so the browser doesn't block it
+    if (mode === "popup" && !inject) {
+        if (!window.open(gameurl.href, "_blank", popupfeatures)) {notice("Your browser blocked the popup. Allow popups for this site and try again.")};
+        return;
     };
-    if (localStorage.getItem("launchnewtab") == 'true') {
-        newtabcheckbox.checked = true;
-        document.getElementById('playbutton').target = "_blank"};
+    let win = null;
+    if (mode !== "same") {
+        win = window.open("about:blank", "_blank", mode === "popup" ? popupfeatures : undefined);
+        if (!win) {notice("Your browser blocked the new window. Allow popups for this site and try again."); return};
+    };
+    if (!inject) {writepage(win, cloakpage(gameurl.href)); return};
+    try {
+        const response = await fetch(gameurl.href);
+        if (!response.ok) {throw new Error("HTTP " + response.status)};
+        localStorage.setItem("wispcraft_wispurl", wispurl());
+        const page = injectwisp(await response.text(), gameurl.href);
+        if (win) {writepage(win, page)}
+        else {location.href = URL.createObjectURL(new Blob([page], {type: "text/html"}))};
+    } catch (error) {
+        notice("WISP injection failed (" + error.message + "). Launching without it.", "WISP");
+        if (win) {win.location.href = gameurl.href} else {location.href = gameurl.href};
+    };
 };
-function launchnewtab() {
-    if (newtabcheckbox.checked) {localStorage.setItem("launchnewtab", true); document.getElementById('playbutton').target = "_blank"; return}
-    else {localStorage.setItem("launchnewtab", false); document.getElementById('playbutton').target = ""};
-};
+
+playlink.addEventListener("click", (event) => {
+    const mode = localStorage.getItem("launchmode") || "same";
+    const gameurl = new URL(playlink.getAttribute("href"), location.href);
+    // Links with a query (userscripts) can't be re-hosted without losing it, so they skip injection
+    const inject = wispenabled() && !gameurl.search;
+    if (wispenabled() && !inject) {notice("WISP injection was skipped because this entry uses a userscript.", "WISP")};
+    if (!inject && (mode === "same" || mode === "tab")) {return};
+    event.preventDefault();
+    launchgame(gameurl, mode, inject);
+});
+
+syncsettings();
+syncwisp();
 
 function presetlaunchers() {
     if (presetscheckbox.checked) {
