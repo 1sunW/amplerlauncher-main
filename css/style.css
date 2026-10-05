@@ -33,6 +33,8 @@ body {
     --text-secondary: #cccccc;
     --ui-select: #008542;
     --ui-select-secodary: #1c985a;
+    --ui-select-deep: #0c6e3d;
+    --ui-select-bright: #00aa00;
     --ui-red: #aa0000;
     --ui-red-secondary: #ae2525;
     --ui-contributors: #1c190b;
@@ -107,7 +109,7 @@ hr {
     font-style: italic;
     transition: 0.3s;
     animation: drop .5s linear forwards;
-    font-size: 1.5vw;
+    font-size: calc(1.5vw * var(--text-scale, 1));
 }
 
 #naerror {
@@ -119,7 +121,7 @@ hr {
     right: 35%;
     padding: 0.25vw 4vw;
     color: darkred;
-    font-size: 1vw;
+    font-size: calc(1vw * var(--text-scale, 1));
     border: red solid 0.1vw;
 }
 
@@ -141,7 +143,7 @@ hr {
     display: none;
     align-items: center;
     justify-content: center;
-    font-size: 1.3vw;
+    font-size: calc(1.3vw * var(--text-scale, 1));
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.75);
@@ -174,7 +176,7 @@ hr {
 
 .warningtitle {
     margin-bottom: 1vh;
-    font-size: 1.4vw;
+    font-size: calc(1.4vw * var(--text-scale, 1));
 }
 
 .confirmationbuttons {
@@ -199,7 +201,7 @@ hr {
     justify-content: flex-start;
     gap: 1.5vw;
     padding-left: 1.5vw;
-    font-size: 0.9vw;
+    font-size: calc(0.9vw * var(--text-scale, 1));
     line-height: 1.5vw;
     transition: 0.3s;
 }
@@ -211,7 +213,7 @@ hr {
 
 .sidebarOptions.sidebarBottom {
     position: absolute;
-    font-size: 1.1vw;
+    font-size: calc(1.1vw * var(--text-scale, 1));
 }
 
 .sidebarOptions.selected {
@@ -226,7 +228,7 @@ hr {
 #gtabs5 img, #gtabs6 img {width: 2vw;}
 
 .eaglercraftText {
-    font-size: 1.1vw;
+    font-size: calc(1.1vw * var(--text-scale, 1));
 }
 
 .launcherVersion {
@@ -235,7 +237,7 @@ hr {
     left: 1.25vw;
     right: 0;
     z-index: 1;
-    font-size: 1.1vw;
+    font-size: calc(1.1vw * var(--text-scale, 1));
     color: var(--text-secondary);
     width: fit-content;
 }
@@ -248,7 +250,7 @@ hr {
 }
 
 .gameHeader {padding: 1.8vw 1.8vw 0;}
-.currentGame {font-size: 1.2vw;}
+.currentGame {font-size: calc(1.2vw * var(--text-scale, 1));}
 
 .gameTabs {
     display: flex;
@@ -258,7 +260,7 @@ hr {
 .headerButtons {
     padding: 0.6vw 1.1vw;
     color: var(--text-secondary);
-    font-size: 0.95vw;
+    font-size: calc(0.95vw * var(--text-scale, 1));
     line-height: 1.7vw;
     transition: 0.3s;
 }
@@ -358,7 +360,7 @@ hr {
     top: 0;
     bottom: 0;
     right: 3vw;
-    font-size: 1.35vw;
+    font-size: calc(1.35vw * var(--text-scale, 1));
 }
 
 @keyframes drop {
@@ -411,7 +413,7 @@ hr {
 }
 
 .modssubtitle {
-    font-size: 1.3vw;
+    font-size: calc(1.3vw * var(--text-scale, 1));
 }
 
 #modsbox {
@@ -436,7 +438,7 @@ hr {
 }
 
 .modoption.selected {
-    border: 0.15vw solid #00AA00;
+    border: 0.15vw solid var(--ui-select-bright);
 }
 
 .modoption img {
@@ -451,11 +453,11 @@ hr {
     background-color: var(--ui-main-light);
     padding: 0.5vw;
     height: -webkit-fill-available;
-    font-size: 1.1vw;
+    font-size: calc(1.1vw * var(--text-scale, 1));
 }
 
 .modtitle {
-    font-size: 1.2vw;
+    font-size: calc(1.2vw * var(--text-scale, 1));
 }
 
 .modauthor {
@@ -473,11 +475,11 @@ hr {
     align-items: center;
     background-color: var(--ui-main-dark);
     overflow-y: scroll;
-    font-size: 1.2vw;
+    font-size: calc(1.2vw * var(--text-scale, 1));
 }
 
 .faqtitle {
-    font-size: 2.3vw;
+    font-size: calc(2.3vw * var(--text-scale, 1));
     padding-top: 3vh;
 }
 
@@ -499,7 +501,7 @@ hr {
 }
 
 .faqsymbol {
-    font-size: 2vw;
+    font-size: calc(2vw * var(--text-scale, 1));
 }
 
 /* Installations Menu CSS */
@@ -562,12 +564,12 @@ hr {
 .newinstallationheader {
     display: flex;
     align-items: center;
-    font-size: 1.3vw;
+    font-size: calc(1.3vw * var(--text-scale, 1));
     padding: 1vw 0;
 }
 
 .newinstallationdetails input, .newinstallationdetails select {
-    font-size: 1.2vw;
+    font-size: calc(1.2vw * var(--text-scale, 1));
     margin: 0.2vw;
     padding: 0.3vw 1vw;
     color: white;
@@ -605,7 +607,7 @@ hr {
     height: 9vh;
     width: 74vw;
     align-items: center;
-    font-size: 1.2vw;
+    font-size: calc(1.2vw * var(--text-scale, 1));
     transition: 0.15s;
 }
 
@@ -621,7 +623,7 @@ hr {
     width: 3.5vh;
     height: 3.5vh;
     appearance: none;
-    border: 0.3vw solid #0c6e3d;
+    border: 0.3vw solid var(--ui-select-deep);
     cursor: pointer;
 }
 
@@ -630,7 +632,7 @@ hr {
 }
 
 .installationBox:checked:hover {
-    background-color: #0f9a54;
+    background-color: var(--ui-select-secodary);
 }
 
 .installationOption img {
@@ -667,11 +669,11 @@ hr {
     flex-direction: column;
     background-color: var(--ui-main-dark);
     overflow-y: scroll;
-    font-size: 1.3vw;
+    font-size: calc(1.3vw * var(--text-scale, 1));
 }
 
 .patchnotes-title {
-    font-size: 1.4vw;
+    font-size: calc(1.4vw * var(--text-scale, 1));
 }
 
 .versionscontainer {
@@ -685,7 +687,7 @@ hr {
     width: 2.5vh;
     height: 2.5vh;
     appearance: none;
-    border: 0.3vw solid #0c6e3d;
+    border: 0.3vw solid var(--ui-select-deep);
     cursor: pointer;
 }
 
@@ -723,7 +725,7 @@ hr {
     border-top: 0.1vh solid var(--ui-main-light);
     padding: 0.5vw 1vw 1vw;
     height: -webkit-fill-available;
-    font-size: 1.2vw;
+    font-size: calc(1.2vw * var(--text-scale, 1));
 }
 
 #externalmenu {
@@ -741,7 +743,7 @@ hr {
 .notescreenheader {
     display: flex;
     align-items: center;
-    font-size: 1.5vw;
+    font-size: calc(1.5vw * var(--text-scale, 1));
     padding: 1.5vw;
 }
 
@@ -766,7 +768,7 @@ hr {
 
 .notescreendetails .date {
     color: var(--text-secondary);
-    font-size: 1.1vw;
+    font-size: calc(1.1vw * var(--text-scale, 1));
 }
 
 .notescreendetails ul {
@@ -788,11 +790,11 @@ hr {
     align-items: center;
     background-color: var(--ui-main-dark);
     overflow-y: scroll;
-    font-size: 1.2vw;
+    font-size: calc(1.2vw * var(--text-scale, 1));
 }
 
 .contributorstitle {
-    font-size: 2.3vw;
+    font-size: calc(2.3vw * var(--text-scale, 1));
     padding-top: 3vh;
 }
 
@@ -827,7 +829,7 @@ hr {
 }
 
 .contributorside .contributoruser {
-    font-size: 1.5vw;
+    font-size: calc(1.5vw * var(--text-scale, 1));
 }
 
 .contributorside .contributordescription {
@@ -858,7 +860,7 @@ hr {
     align-items: center;
     background-color: var(--ui-main-dark);
     overflow-y: scroll;
-    font-size: 1.2vw;
+    font-size: calc(1.2vw * var(--text-scale, 1));
 }
 
 .credittile {
@@ -887,7 +889,7 @@ hr {
     align-items: flex-start;
     background-color: var(--ui-main-dark);
     overflow-y: scroll;
-    font-size: 1vw;
+    font-size: calc(1vw * var(--text-scale, 1));
     padding: 5vh 3vw 7vh;
 }
 
@@ -896,7 +898,7 @@ hr {
 }
 
 #generalsettings .settingstitle {
-    font-size: 1.1vw;
+    font-size: calc(1.1vw * var(--text-scale, 1));
     padding-top: 4vh;
 }
 
@@ -924,12 +926,12 @@ hr {
 }
 
 .settingsbox:checked {
-    background-color: #0c6e3d;
-    border-color: #00AA00;
+    background-color: var(--ui-select-deep);
+    border-color: var(--ui-select-bright);
 }
 
 .settingsbox:checked:hover {
-    background-color: #0c5c34;
+    background-color: var(--ui-select-deep);
 }
 
 #usernameinput {
@@ -975,7 +977,7 @@ hr {
 }
 
 #aboutsettings .settingstitle {
-    font-size: 1.1vw;
+    font-size: calc(1.1vw * var(--text-scale, 1));
     padding-top: 2vh;
 }
 
@@ -1004,7 +1006,7 @@ hr {
     align-items: center;
     background-color: var(--ui-main-dark);
     z-index: 999;
-    font-size: 1.1vw;
+    font-size: calc(1.1vw * var(--text-scale, 1));
 }
 
 .dropdownOptions:hover {
@@ -1035,9 +1037,131 @@ hr {
     display: grid;
     align-items: center;
     justify-content: flex-start;
-    font-size: 1.1vw;
+    font-size: calc(1.1vw * var(--text-scale, 1));
 }
 
 #gametitle {
     width: max-content;
+}
+
+/* Launch Mode, Appearance and WISP Settings CSS */
+
+.settingsdesc {
+    color: var(--text-secondary);
+    margin-top: 0.4vw;
+}
+
+.settingcards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8vw;
+    margin-top: 0.8vw;
+}
+
+.settingcard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2vw;
+    width: 12.5vw;
+    padding: 0.7vw 0.9vw;
+    background-color: rgba(0, 0, 0, 0.25);
+    border: 0.1vw solid var(--ui-main-light);
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.settingcard:hover {
+    border-color: var(--ui-main-lighter);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.settingcard.selected {
+    border-color: var(--ui-select);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.settingcard .carddesc {
+    color: var(--text-secondary);
+    font-size: calc(0.85vw * var(--text-scale, 1));
+}
+
+.settingcard.compact {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6vw;
+    width: auto;
+    padding: 0.5vw 1.1vw;
+}
+
+.themedot {
+    width: 1.1vw;
+    height: 1.1vw;
+    border-radius: 50%;
+}
+
+.settingrow {
+    display: flex;
+    align-items: center;
+    gap: 0.8vw;
+    margin-top: 0.8vw;
+    transition: 0.15s;
+}
+
+.settingrow.disabled {
+    opacity: 0.45;
+}
+
+.settinginput {
+    padding: 0.3vw 1vw;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.25);
+    border: 0.1vw solid var(--ui-main-light);
+    border-radius: 0.25vw;
+    width: 28vw;
+}
+
+.settingrow .classicbutton {
+    padding: 0.3vw 1.5vw;
+}
+
+/* Themes - picked in Settings, stored as data-theme on <html> */
+
+html[data-theme="redstone"] body {
+    --ui-select: #b02a2a;
+    --ui-select-secodary: #c84141;
+    --ui-select-deep: #7a1c1c;
+    --ui-select-bright: #e04040;
+}
+
+html[data-theme="lapis"] body {
+    --ui-select: #1f5fbf;
+    --ui-select-secodary: #3a78d6;
+    --ui-select-deep: #17468c;
+    --ui-select-bright: #4f8df0;
+}
+
+html[data-theme="amethyst"] body {
+    --ui-select: #7b3fb5;
+    --ui-select-secodary: #9356cc;
+    --ui-select-deep: #57297f;
+    --ui-select-bright: #a466e0;
+}
+
+html[data-theme="gold"] body {
+    --ui-select: #b8860b;
+    --ui-select-secodary: #d4a020;
+    --ui-select-deep: #7d5a08;
+    --ui-select-bright: #e6b422;
+}
+
+html[data-theme="midnight"] body {
+    background-color: #151a27;
+    --ui-main-lighter: #3a4666;
+    --ui-main-light: #1d2538;
+    --ui-main: #121826;
+    --ui-main-dark: #0b0f19;
+    --ui-select: #2a6fb8;
+    --ui-select-secodary: #3d86d4;
+    --ui-select-deep: #1d4f86;
+    --ui-select-bright: #4f9af0;
 }
